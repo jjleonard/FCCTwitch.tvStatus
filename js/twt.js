@@ -33,4 +33,11 @@ function display(data){
 // and storing the information returned, in the array (ID, stream description)
 // then generating a bunch of li's via bootstrap to show status, description and provide a linke
 // to their stream.
+//
+//
+// USEFUL LINKS:
+// FCC Project Page: https://www.freecodecamp.org/challenges/use-the-twitchtv-json-api
+// Glitch API info: https://wind-bow.glitch.me/
+// Twitch developer API page: https://dev.twitch.tv/docs/v5/reference/streams#get-stream-by-user
+
 
