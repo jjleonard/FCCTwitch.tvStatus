@@ -7,36 +7,23 @@ $(document).ready(function(){
 
   getStreams();
 
-  // function getStreams(){
-  //   var callPoint = endpoint+"users/"+userList[1];
-  //   $.ajax({
-  //     url: callPoint,
-  //     data: {
-  //       format: 'json'
-  //     },
-  //     type: 'GET',
-  //     // Api-User_agent below is recommended when
-  //     // querying so they can identify you - format is free-form
-  //     // headers: {
-  //     //   'Api-User-Agent': 'jjleonard@gmail.com'
-  //     // },
-  //     dataType: 'json',
-  //     jsonpCallback: "display",
-  //   });
-  // };  
-
   function getStreams(){
     for (i=0; i<userList.length;i++){
       var userName = userList[i];
-      var callPoint = endpoint+"streams/"+userName+"?callback=?";
-      $.getJSON(callPoint, function(data){
-        if(data["stream"]==null){
-          status = "Not Streaming"
-        } else {
-          status = data["stream"]["channel"]["status"];
-        }
-        console.log(data);
-        $("ul").append('<li><a href="https://www.twitch.tv/'+userName+'">'+userName+'</a> '+status+' </li>');
+      var channelsCallPoint = endpoint+"channels/"+userName+"?callback=?";
+      var streamsCallPoint = endpoint+"streams/"+name+"?callback=?";
+      var name = "";
+      var userURL = "";
+      var jqxhr = $.getJSON(channelsCallPoint, function(data){
+        name = data["name"];
+        userURL = data["url"];
+        console.log(name, userURL);
+      });
+      jqxhr.done(function(){
+        $.getJSON(streamsCallPoint, function(data2){
+          console.log(data2["status"]);
+          $("ul").append('<li><a href="'+userURL+'">'+name+'</a> '+status+' </li>');
+        });
       });
     };
   };
