@@ -1,32 +1,53 @@
 let endpoint = "https://wind-bow.gomix.me/twitch-api/";
 let userList = ["ESL_SC2", "OgamingSC2", "cretetion", "freecodecamp", "storbeck", "habathcx", "RobotCaleb", "noobs2ninjas"];
 let userListStr = "ESL_SC2, OgamingSC2, cretetion, freecodecamp, storbeck, habathcx, RobotCaleb, noobs2ninjas";
+let userNames = [];
+let userStatus = [];
 
 
 $(document).ready(function(){
+  getUsers();
+ 
 
-  getStreams();
 
-  function getStreams(){
-    for (i=0; i<userList.length;i++){
-      var userName = userList[i];
-      var channelsCallPoint = endpoint+"channels/"+userName+"?callback=?";
-      var streamsCallPoint = endpoint+"streams/"+name+"?callback=?";
-      var name = "";
-      var userURL = "";
-      var jqxhr = $.getJSON(channelsCallPoint, function(data){
-        name = data["name"];
-        userURL = data["url"];
-        console.log(name, userURL);
-      });
-      jqxhr.done(function(){
-        $.getJSON(streamsCallPoint, function(data2){
-          console.log(data2["status"]);
-          $("ul").append('<li><a href="'+userURL+'">'+name+'</a> '+status+' </li>');
-        });
+  // function getUsers(){
+  //   for(i=0; i<userList.length; i++){
+  //     let userName = userList[i];
+  //     $.getJSON(endpoint+"channels/"+userName+"?callback=?", function(data){
+  //       userNames.push(data["name"]);
+  //     });
+  //   };
+  // };
+
+  // function getStatus(){
+  //   for(i=0; i<userList.length; i++){
+  //     let userName = userList[i];
+  //     $.getJSON(endpoint+"streams/"+userName+"?callback=?", function(data){
+  //       console.log(data);
+  //     });
+  //   };
+  // };
+
+  function getUsers(){
+    for(i=0; i<userList.length; i++){
+      userName = userList[i];
+      console.log(userName);
+      $.ajax({
+        url: endpoint+"channels/"+userName,
+        data: {
+          format: 'json'
+        },
+        type:'GET',
+        dataType: 'jsonp',
+        jsonpCallback: 'display',
       });
     };
   };
+
+  function display(data){
+    console.log(data["name"]+", "+data["status"]);
+  };
+
 
 });
 
@@ -54,5 +75,7 @@ $(document).ready(function(){
 // Glitch API info: https://wind-bow.glitch.me/
 // Twitch developer API page: https://dev.twitch.tv/docs/v5/reference/streams#get-stream-by-user
 // Jquery using getJSON: http://api.jquery.com/jquery.getjson/
+// var channelsCallPoint = endpoint+"channels/"+userName+"?callback=?";
+// var streamsCallPoint = endpoint+"streams/"+name+"?callback=?";
 
 
