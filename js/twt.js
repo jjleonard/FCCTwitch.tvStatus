@@ -1,74 +1,30 @@
 let endpoint = "https://wind-bow.gomix.me/twitch-api/";
-let userList = ["ESL_SC2", "OgamingSC2", "cretetion", "freecodecamp", "storbeck", "habathcx", "RobotCaleb", "noobs2ninjas"];
-let userListStr = "ESL_SC2, OgamingSC2, cretetion, freecodecamp, storbeck, habathcx, RobotCaleb, noobs2ninjas";
-let userNames = [];
-let userStatus = [];
+let channelsList = ["ESL_SC2", "OgamingSC2", "cretetion", "freecodecamp", "storbeck", "habathcx", "RobotCaleb", "noobs2ninjas"];
+// let userListStr = "ESL_SC2, OgamingSC2, cretetion, freecodecamp, storbeck, habathcx, RobotCaleb, noobs2ninjas";
+// let userNames = [];
+// let userStatus = [];
+let status = "";
+let info = "";
 
 
-$(document).ready(function(){
-  getUsers();
- 
+// PSUEDO CODE:
+// for each item in the channelsList: channelsList.foreach(function(channel){
+// THIS IS A WRAPPER FUNCTION THAT DOES ALL THE BELOW FOR EACH ITEM
+// })
+// declare a function createURL that builds the type of url request (stream / channel) + name + ?callback=?
+// do a $.getJSON using createURL with the type (stream) and the channel var passed in from the foreach function, and a function that updates vars with the data
+// if stream:null, they are offline, set the status var to Offline; if not, then set the status var to the channel["status"] value, and the game title to the value of the stream["game"] var
+// then do another $.getJSON useing createURL with the type (channel) and the channel var from the foreach function, and create a function to
+// get the url of the stream (url:)
+// 
 
 
-  // function getUsers(){
-  //   for(i=0; i<userList.length; i++){
-  //     let userName = userList[i];
-  //     $.getJSON(endpoint+"channels/"+userName+"?callback=?", function(data){
-  //       userNames.push(data["name"]);
-  //     });
-  //   };
-  // };
-
-  // function getStatus(){
-  //   for(i=0; i<userList.length; i++){
-  //     let userName = userList[i];
-  //     $.getJSON(endpoint+"streams/"+userName+"?callback=?", function(data){
-  //       console.log(data);
-  //     });
-  //   };
-  // };
-
-  function getUsers(){
-    for(i=0; i<userList.length; i++){
-      userName = userList[i];
-      console.log(userName);
-      $.ajax({
-        url: endpoint+"channels/"+userName,
-        data: {
-          format: 'json'
-        },
-        type:'GET',
-        dataType: 'jsonp',
-        jsonpCallback: 'display',
-      });
-    };
-  };
-
-  function display(data){
-    console.log(data["name"]+", "+data["status"]);
-  };
 
 
-});
 
-// function display(data){
-//   console.log(data);
-//   $("ul").append('<li><a href="https://www.twitch.tv/'+data["name"]+'">'+data["name"]+'</a></li>');
-// };
 
-// Base test Javascript done - can query the twitch.tv API via the glitch link.
-// TODO:
-// work out how to query the status of a number of users at the same time.
-// their status is returned as either null or a whole ton of data, so it might be 
-// worth storing a bunch of IDs in an array, the looping through and querying,
-// and storing the information returned, in the array (ID, stream description)
-// then generating a bunch of li's via bootstrap to show status, description and provide a link
-// to their stream.
-//
-// 6/1/18: done all above, by looping through a list of users, and pulling back data from each, then creating links to their streams.
-// next thing todo: user list is returning userName as the last one in the list for all of the entries. this is a callback problem, i'm sure.
-// back at it tomorrow.
-//
+
+
 //
 // USEFUL LINKS:
 // FCC Project Page: https://www.freecodecamp.org/challenges/use-the-twitchtv-json-api
