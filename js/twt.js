@@ -5,7 +5,43 @@ let channelsList = ["ESL_SC2", "OgamingSC2", "cretetion", "freecodecamp", "storb
 // let userStatus = [];
 let status = "";
 let info = "";
+var twitchGamers = new Object();
+channelsList.forEach(function(channel){
+  twitchGamers[channel] = {
+    status:"",
+    streamLink: "",
+    logo: ""
+  };
+})
 
+$(document).ready(function(){
+
+  getTwitchData();
+
+});
+
+function getTwitchData(){
+  channelsList.forEach(function getStreamData(channel){
+    $.getJSON(endpoint+"streams/"+channel+"?callback=?", function(d){
+      if (d.stream === null){
+        status = "Offline";
+      } else {
+        status = d.stream.channel.game+": "+d.stream.channel.status;
+      };
+      twitchGamers[channel]["status"] = status;
+    });
+    $.getJSON(endpoint+"channels/"+channel+"?callback=?", function(d){
+      twitchGamers[channel].streamLink = d["url"];
+      twitchGamers[channel].logo = d["logo"];
+      // as much as i'm going to hate doing it, i need to insert the HTML generator code here,
+      // and write it into the page as it's created.
+      // right now, I cannot think of a way to create a callback on the successful results of two other callbacks,
+      // and it is faster and neater to simply generate the html and get on with it.
+      // sigh.
+      // at least I know a hell of a lot more about callbacks now, and I can get them working (to a limited degree...)
+    });
+  });
+};
 
 // PSUEDO CODE:
 // for each item in the channelsList: channelsList.foreach(function(channel){
@@ -18,11 +54,14 @@ let info = "";
 // get the url of the stream (url:)
 // 
 
-
-
-
-
-
+// Information needed:
+// channel name (in array above)
+// online / offline status: from streams call: "stream" is either null (offline) or use "stream""game" for the game name, and "channel""status" to the current status
+// link to stream: channels call "url" value returns link
+// logo: channels call "logo" value returns url for image
+// (go back to an earlier freecodecamp project to work out how to present these logos in a pretty fashion or simply use a bootsrap method to do so)
+// then present: Logo, channel name, status, and link to stream.
+// how you present this is up to you!
 
 
 //
