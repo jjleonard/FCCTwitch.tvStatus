@@ -38,6 +38,6 @@ function showData(e, streaming){
   } else {
     statusClass = "offline";
   };
-  var li = "<li class = 'list-group-item "+statusClass+"'>"+e.name+": <span class='badge'>"+streaming+"</span>: <a href='"+e.url+"'>"+e.status+"</a></li>"
+  var li = "<li class = 'list-group-item "+statusClass+"'>"+e.name+": <span class='badge'>"+streaming+"</span> <a href='"+e.url+"'>"+e.status+"</a></li>"
   $("ul").append(li);
 };
